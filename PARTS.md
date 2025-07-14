@@ -18,13 +18,12 @@
 - Accurate timing
 - NMEA-0183 protocol
 
-###### Bluetooth
-[Raytac Bluetooth 5.2 Module MDBT53-1M](https://www.sparkfun.com/raytac-bluetooth-5-2-module-mdbt53-1m.html)
-
-
 ###### WiFi
-
+[Radxa Wireless Module](https://ameridroid.com/products/radxa-wireless-module?variant=43717598118167&country=US&currency=USD&gQT=1)
+- WiFi 6 (2.4GHZ and 5GHZ bands)
+- Bluetooth 5
 
 ###### Batter / External Power
-
+[Portable Battery](https://www.amazon.com/Portable-36800mAh-Tri-Outport-External-Compatible/dp/B0936GZ7H3?source=ps-sl-shoppingads-lpcontext&gQT=1)
+- 36800mAh
 - 5V / 3A
