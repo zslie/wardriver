@@ -1,4 +1,4 @@
-module test(
+module wardriver(
         input d,
         input clk,
         input rstn
@@ -17,7 +17,7 @@ module test(
 
     initial begin
         $dumpfile("../vcd/test.vcd");
-        $dumpvars(0, test);
+        $dumpvars(0, wardriver);
 
         $readmemb("../input/8wire.txt", signal_memory);
 
