@@ -54,7 +54,7 @@ module blinkers (
         end
     endtask
 
-    always @(posedge clk_edge) begin
+    always @(posedge clk_edge, posedge rstbtn) begin
         if (rstbtn) begin 
             led1 = 0;
             led2 = 0;
