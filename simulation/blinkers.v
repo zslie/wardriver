@@ -27,8 +27,8 @@ module blinkers (
         #1000 $finish;
     end
 
-    always #1 begin 
-        #10 clk_edge = ~clk_edge;
+    always #10 begin 
+        clk_edge = ~clk_edge;
     end
 
     reg [3:0] cycle_count_led1 = 'b0;
