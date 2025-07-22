@@ -29,12 +29,13 @@ module blinkers (
     task cycle_led (
         output led,
         input reg [3:0] blink_interval,
-        input reg [3:0] cycle_count
+        inout reg [3:0] cycle_count
     );
-        if (cycle_count % blink_interval == 0) begin
+        if (cycle_count > 0 && cycle_count % blink_interval == 0) begin
             cycle_count = 0;
             led = 1;
         end else begin
+            $display("[$display]: Cycle Task: Cycle Count: %d, Blink Interval: %d", cycle_count, blink_interval);
             cycle_count += 1;
             led = 0;
         end
@@ -45,6 +46,8 @@ module blinkers (
             led1 = 0;
             led2 = 0;
             led3 = 0;
+            cycle_count_led1 = 0;
+            cycle_count_led2 = 0;
         end else begin 
             cycle_led(led1, LED_1_BLINK_INTERVAL, cycle_count_led1);
             cycle_led(led2, LED_2_BLINK_INTERVAL, cycle_count_led2);
