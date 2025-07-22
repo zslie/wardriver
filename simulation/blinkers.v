@@ -1,7 +1,20 @@
+/*
+This module is meant as a way for me to learn some basic Verilog and have an 
+easily verifiable test bench.
+
+The idea is that 3 LEDs are on a chip
+LED 1 : Blink every 10 cycles
+LED 2 : Blink every 5 cycles
+LED 3 : (TODO) Blink every <random_interval> cycles
+        Since verilog does not synthesize $random, one needs to implement a 
+        LFSR to get a random value
+        https://en.wikipedia.org/wiki/Linear-feedback_shift_register
+        https://simplefpga.blogspot.com/2013/02/random-number-generator-in-verilog-fpga.html
+*/
 module blinkers (
     input clk,
     input rstbtn,
-    output reg led1, led2, led3 = 0
+    output reg led1 = 0, led2 = 0, led3 = 0
 );
 
     reg clk_edge = 0;
@@ -35,7 +48,7 @@ module blinkers (
             cycle_count = 0;
             led = 1;
         end else begin
-            $display("[$display]: Cycle Task: Cycle Count: %d, Blink Interval: %d", cycle_count, blink_interval);
+            // $display("Cycle Task: Cycle Count: %d, Blink Interval: %d", cycle_count, blink_interval);
             cycle_count += 1;
             led = 0;
         end
