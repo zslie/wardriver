@@ -23,7 +23,6 @@ module blinkers (
         $dumpfile("../vcd/blinkers.vcd");
         $dumpvars(0, blinkers);
 
-        // $monitor("Time = %0t clk = %0d sig = %0d", $time, clk, clk_edge);
         #1000 $finish;
     end
 
@@ -34,8 +33,12 @@ module blinkers (
     reg [3:0] cycle_count_led1 = 'b0;
     reg [3:0] cycle_count_led2 = 'b0;
 
-    reg [3:0] LED_1_BLINK_INTERVAL = 'b1010; // 10
-    reg [3:0] LED_2_BLINK_INTERVAL = 'b0101; // 5
+    reg [3:0] LED_1_BLINK_INTERVAL = 'b1001; // 9
+    reg [3:0] LED_2_BLINK_INTERVAL = 'b0100; // 4
+
+
+    reg [1:0][3:0] calcled1;
+    reg [1:0][3:0] calcled2;
 
     // TODO - led 3 on randomized interval
 
@@ -48,22 +51,36 @@ module blinkers (
             cycle_count = 0;
             led = 1;
         end else begin
-            // $display("Cycle Task: Cycle Count: %d, Blink Interval: %d", cycle_count, blink_interval);
             cycle_count += 1;
             led = 0;
         end
     endtask
 
-    always @(posedge clk_edge, posedge rstbtn) begin
+    always @(posedge clk_edge, negedge clk_edge, posedge rstbtn) begin
         if (rstbtn) begin 
-            led1 = 0;
-            led2 = 0;
-            led3 = 0;
-            cycle_count_led1 = 0;
-            cycle_count_led2 = 0;
+            led1 <= 0;
+            led2 <= 0;
+            led3 <= 0;
+            cycle_count_led1 <= 0;
+            cycle_count_led2 <= 0;
         end else begin 
-            cycle_led(led1, LED_1_BLINK_INTERVAL, cycle_count_led1);
-            cycle_led(led2, LED_2_BLINK_INTERVAL, cycle_count_led2);
+            // calcled1 <= cycle_led(led1, LED_1_BLINK_INTERVAL, cycle_count_led1);
+            // calcled2 <= cycle_led(led2, LED_2_BLINK_INTERVAL, cycle_count_led2);
+            if (cycle_count_led1 > 0 && cycle_count_led1 % LED_1_BLINK_INTERVAL == 0) begin
+                cycle_count_led1 <= 0;
+                led1 <= 1;
+            end else begin 
+                cycle_count_led1 <= cycle_count_led1 + 1;
+                led1 <= 0;
+            end
+
+            if (cycle_count_led2 > 0 && cycle_count_led2 % LED_2_BLINK_INTERVAL == 0) begin 
+                cycle_count_led2 <= 0;
+                led2 <= 1;
+            end else begin 
+                cycle_count_led2 <= cycle_count_led2 + 1;
+                led2 <= 0;
+            end 
         end
     end
 endmodule
