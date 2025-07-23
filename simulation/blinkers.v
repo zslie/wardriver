@@ -64,23 +64,8 @@ module blinkers (
             cycle_count_led1 <= 0;
             cycle_count_led2 <= 0;
         end else begin 
-            // calcled1 <= cycle_led(led1, LED_1_BLINK_INTERVAL, cycle_count_led1);
-            // calcled2 <= cycle_led(led2, LED_2_BLINK_INTERVAL, cycle_count_led2);
-            if (cycle_count_led1 > 0 && cycle_count_led1 % LED_1_BLINK_INTERVAL == 0) begin
-                cycle_count_led1 <= 0;
-                led1 <= 1;
-            end else begin 
-                cycle_count_led1 <= cycle_count_led1 + 1;
-                led1 <= 0;
-            end
-
-            if (cycle_count_led2 > 0 && cycle_count_led2 % LED_2_BLINK_INTERVAL == 0) begin 
-                cycle_count_led2 <= 0;
-                led2 <= 1;
-            end else begin 
-                cycle_count_led2 <= cycle_count_led2 + 1;
-                led2 <= 0;
-            end 
+            cycle_led(led1, LED_1_BLINK_INTERVAL, cycle_count_led1);
+            cycle_led(led2, LED_2_BLINK_INTERVAL, cycle_count_led2);
         end
     end
 endmodule
