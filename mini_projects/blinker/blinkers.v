@@ -5,7 +5,7 @@ easily verifiable test bench.
 The idea is that 3 LEDs are on a chip
 LED 1 : Blink every 10 cycles
 LED 2 : Blink every 5 cycles
-LED 3 : (TODO) Blink every <random_interval> cycles
+LED 3 : Blink every <random_interval> cycles
         Since verilog does not synthesize $random, one needs to implement a 
         LFSR to get a random value
         https://en.wikipedia.org/wiki/Linear-feedback_shift_register
@@ -23,7 +23,7 @@ module blinkers (
     assign is_undefined_byte = (random_interval == 5'bx);
 
     initial begin
-        $dumpfile("../vcd/blinkers.vcd");
+        $dumpfile("./blinkers.vcd");
         $dumpvars(0, blinkers);
         // $monitor("Random Interval Update: %b", random_interval);
         // $monitor("LED 3 Interval Update: %b", LED_3_BLINK_INTERVAL);
@@ -41,12 +41,6 @@ module blinkers (
     reg [3:0] LED_1_BLINK_INTERVAL = 'b1001; // 9
     reg [3:0] LED_2_BLINK_INTERVAL = 'b0100; // 4
     reg [3:0] LED_3_BLINK_INTERVAL = 'b1111; // Cycle after first run to immediately get new value
-
-
-    reg [1:0][3:0] calcled1;
-    reg [1:0][3:0] calcled2;
-
-    // TODO - led 3 on randomized interval
 
     task cycle_led (
         output led,
